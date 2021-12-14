@@ -116,14 +116,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (Object.getOwnPropertySymbols) {
 	    var symbols = Object.getOwnPropertySymbols(object);
-
-	    if (enumerableOnly) {
-	      symbols = symbols.filter(function (sym) {
-	        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-	      });
-	    }
-
-	    keys.push.apply(keys, symbols);
+	    enumerableOnly && (symbols = symbols.filter(function (sym) {
+	      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+	    })), keys.push.apply(keys, symbols);
 	  }
 
 	  return keys;
@@ -131,19 +126,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _objectSpread(target) {
 	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i] != null ? arguments[i] : {};
-
-	    if (i % 2) {
-	      ownKeys(Object(source), true).forEach(function (key) {
-	        _defineProperty(target, key, source[key]);
-	      });
-	    } else if (Object.getOwnPropertyDescriptors) {
-	      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-	    } else {
-	      ownKeys(Object(source)).forEach(function (key) {
-	        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-	      });
-	    }
+	    var source = null != arguments[i] ? arguments[i] : {};
+	    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+	      _defineProperty(target, key, source[key]);
+	    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+	      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+	    });
 	  }
 
 	  return target;
@@ -3554,7 +3542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var FluxStore = __webpack_require__(11);
 
-	var abstractMethod = __webpack_require__(19);
+	var abstractMethod = __webpack_require__(18);
 
 	var invariant = __webpack_require__(4);
 	/**
@@ -3832,9 +3820,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EventSubscriptionVendor = __webpack_require__(16);
 
-	var invariant = __webpack_require__(17);
+	var invariant = __webpack_require__(4);
 
-	var emptyFunction = __webpack_require__(18);
+	var emptyFunction = __webpack_require__(17);
 	/**
 	 * @class BaseEventEmitter
 	 * @description
@@ -4133,7 +4121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var invariant = __webpack_require__(17);
+	var invariant = __webpack_require__(4);
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
 	 * subscribed to a particular event type.
@@ -4227,63 +4215,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 * 
-	 */
-	'use strict';
-
-	var validateFormat =  true ? function (format) {
-	  if (format === undefined) {
-	    throw new Error('invariant(...): Second argument must be a string.');
-	  }
-	} : function (format) {};
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments to provide
-	 * information about what broke and what you were expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant will
-	 * remain to ensure logic does not differ in production.
-	 */
-
-	function invariant(condition, format) {
-	  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-	    args[_key - 2] = arguments[_key];
-	  }
-
-	  validateFormat(format);
-
-	  if (!condition) {
-	    var error;
-
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return String(args[argIndex++]);
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // Skip invariant's own stack frame.
-
-	    throw error;
-	  }
-	}
-
-	module.exports = invariant;
-
-/***/ }),
-/* 18 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4326,7 +4257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyFunction;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
